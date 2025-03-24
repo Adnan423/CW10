@@ -61,6 +61,77 @@ class _SignupPageState extends State<SignupPage> {
     }
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Signup Form")),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Form(
+          key: _formKey,
+          child: SingleChildScrollView(
+            child: Column(children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      decoration: const InputDecoration(labelText: 'First Name'),
+                      validator: (value) => value!.isEmpty ? 'Required' : null,
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: TextFormField(
+                      decoration: const InputDecoration(labelText: 'Last Name'),
+                      validator: (value) => value!.isEmpty ? 'Required' : null,
+                    ),
+                  ),
+                ],
+              ),
+              TextFormField(
+                decoration: const InputDecoration(labelText: 'Email'),
+                validator: _validateEmail,
+              ),
+              TextFormField(
+                decoration: const InputDecoration(labelText: 'Contact No.'),
+                keyboardType: TextInputType.phone,
+                validator: _validatePhone,
+              ),
+              TextFormField(
+                controller: _dobController,
+                decoration: InputDecoration(
+                  labelText: 'Date of Birth',
+                  suffixIcon: IconButton(
+                    icon: const Icon(Icons.calendar_today),
+                    onPressed: () => _selectDate(context),
+                  ),
+                ),
+                readOnly: true,
+              ),
+              TextFormField(
+                decoration: const InputDecoration(labelText: 'Password'),
+                obscureText: true,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Password is required';
+                  } else if (value.length < 6) {
+                    return 'Password must be at least 6 characters';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: _handleSubmit,
+                child: const Text('Submit'),
+              ),
+            ]),
+          ),
+        ),
+      ),
+    );
+  }
+}
 
 
 
