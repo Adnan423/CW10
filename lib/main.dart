@@ -52,6 +52,15 @@ class _SignupPageState extends State<SignupPage> {
     }
   }
 
+  void _handleSubmit() {
+    if (_formKey.currentState!.validate()) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const SuccessPage()),
+      );
+    }
+  }
+
 
 
 
